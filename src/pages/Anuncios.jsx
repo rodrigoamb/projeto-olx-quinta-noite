@@ -5,8 +5,8 @@ import Header from "../components/Header";
 export default function Anuncios() {
   return (
     <div>
-      <Header />
-      <BodyList />
+      <Header titulo={"Meus anúncios"} />
+      <BodyList titulo={"Meus anúncios"} />
       <Footer />
     </div>
   );

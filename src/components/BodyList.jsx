@@ -1,4 +1,4 @@
-export default function BodyList() {
+export default function BodyList({ titulo }) {
   const jobs = [
     {
       title: "UI – Front End Dev",
@@ -32,7 +32,7 @@ export default function BodyList() {
   return (
     <section className="mt-12 max-w-screen-lg mx-auto px-4 md:px-8">
       <div>
-        <h1 className="text-gray-800 text-3xl font-semibold">Meus anúncios</h1>
+        <h1 className="text-gray-800 text-3xl font-semibold">{titulo}</h1>
       </div>
 
       <ul className="mt-12 space-y-6">

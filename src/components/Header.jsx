@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Header() {
+export default function Header({ titulo }) {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) path with your path
@@ -76,12 +76,25 @@ export default function Header() {
           </ul>
         </div>
         <div className="hidden md:inline-block">
-          <a
-            href="javascript:void(0)"
-            className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow"
-          >
-            Adicionar anúncio
-          </a>
+          {titulo === "Meus anúncios" ? (
+            <>
+              <button className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer">
+                Sair
+              </button>
+              <button className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow">
+                Adicionar anúncio
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer">
+                Cadastre-se
+              </button>
+              <button className="bg-[#6F0AD6] px-6 py-2 rounded-md text-white">
+                Login
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>
