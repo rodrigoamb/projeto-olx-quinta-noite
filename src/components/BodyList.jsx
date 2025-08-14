@@ -1,4 +1,9 @@
+import { useState } from "react";
+import ModalDelete from "./ModalDelete.jsx";
+
 export default function BodyList() {
+  const [open, setOpen] = useState(false);
+
   const jobs = [
     {
       title: "UI – Front End Dev",
@@ -28,6 +33,10 @@ export default function BodyList() {
       href: "javascript:void(0)",
     },
   ];
+
+  function handleOpenModalDelete() {
+    setOpen(true);
+  }
 
   return (
     <section className="mt-12 max-w-screen-lg mx-auto px-4 md:px-8">
@@ -93,7 +102,10 @@ export default function BodyList() {
                   <button className="text-black bg-[#8CE563] px-6 py-2 rounded-md">
                     Editar
                   </button>
-                  <button className="text-black bg-[#F28000] px-6 py-2 rounded-md">
+                  <button
+                    onClick={() => handleOpenModalDelete(item)}
+                    className="text-black bg-[#F28000] px-6 py-2 rounded-md"
+                  >
                     Deletar
                   </button>
                   <span className="flex items-center text-gray-500">
@@ -117,6 +129,7 @@ export default function BodyList() {
           </li>
         ))}
       </ul>
+      <ModalDelete open={open} setOpen={setOpen} />
     </section>
   );
 }
