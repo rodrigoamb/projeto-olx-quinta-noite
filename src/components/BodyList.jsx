@@ -90,12 +90,16 @@ export default function BodyList({ titulo }) {
                   </div>
                 </div>
                 <div className="mt-4 items-center space-y-4 text-sm sm:flex sm:space-x-4 sm:space-y-0">
-                  <button className="text-black bg-[#8CE563] px-6 py-2 rounded-md">
-                    Editar
-                  </button>
-                  <button className="text-black bg-[#F28000] px-6 py-2 rounded-md">
-                    Deletar
-                  </button>
+                  {titulo === "Meus anúncios" && (
+                    <>
+                      <button className="text-black bg-[#8CE563] px-6 py-2 rounded-md">
+                        Editar
+                      </button>
+                      <button className="text-black bg-[#F28000] px-6 py-2 rounded-md">
+                        Deletar
+                      </button>
+                    </>
+                  )}
                   <span className="flex items-center text-gray-500">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

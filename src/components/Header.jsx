@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Header({ titulo }) {
+export default function Header({ titulo, setOpen }) {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) path with your path
@@ -10,6 +10,10 @@ export default function Header({ titulo }) {
     { title: "Guides", path: "javascript:void(0)" },
     { title: "Partners", path: "javascript:void(0)" },
   ];
+
+  function handleAbrirDrawer() {
+    setOpen(true);
+  }
 
   return (
     <nav className="bg-white w-full border-b md:border-0 md:static">
@@ -81,7 +85,10 @@ export default function Header({ titulo }) {
               <button className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer">
                 Sair
               </button>
-              <button className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow">
+              <button
+                onClick={handleAbrirDrawer}
+                className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow"
+              >
                 Adicionar anúncio
               </button>
             </>
