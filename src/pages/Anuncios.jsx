@@ -4,6 +4,7 @@ import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import FormAddAnuncio from "../components/FormAddAnuncio";
+import Modal from "../components/Modal";
 
 export default function Anuncios() {
   const [open, setOpen] = useState(false);
@@ -16,6 +17,8 @@ export default function Anuncios() {
       <Drawer open={open} setOpen={setOpen} tituloDrawer={"Adicionar Anúncio"}>
         <FormAddAnuncio />
       </Drawer>
+
+      <Modal />
     </div>
   );
 }
