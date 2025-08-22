@@ -9,15 +9,9 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function Drawer({ open, setOpen }) {
+export default function Drawer({ open, setOpen, children, tituloDrawer }) {
   return (
     <div>
-      <button
-        onClick={() => setOpen(true)}
-        className="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
-      >
-        Open drawer
-      </button>
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop
           transition
@@ -47,11 +41,11 @@ export default function Drawer({ open, setOpen }) {
                 <div className="relative flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
                   <div className="px-4 sm:px-6">
                     <DialogTitle className="text-base font-semibold text-gray-900">
-                      Panel title
+                      {tituloDrawer}
                     </DialogTitle>
                   </div>
                   <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                    {/* Your content */}
+                    {children}
                   </div>
                 </div>
               </DialogPanel>

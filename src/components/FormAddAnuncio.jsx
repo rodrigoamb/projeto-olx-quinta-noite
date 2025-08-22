@@ -1,6 +1,6 @@
 export default function FormAddAnuncio() {
   return (
-    <form>
+    <form className="flex flex-col gap-4">
       <div>
         <label className="font-medium">Titulo anúncio</label>
         <input
@@ -43,6 +43,13 @@ export default function FormAddAnuncio() {
           />
         </div>
       </div>
+
+      <button
+        type="submit"
+        className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+      >
+        Adicionar Anúncio
+      </button>
     </form>
   );
 }
