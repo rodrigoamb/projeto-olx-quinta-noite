@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cadastro from "./pages/Cadastro.jsx";
 import Anuncios from "./pages/Anuncios.jsx";
 import Login from "./pages/Login.jsx";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
         <Route path={"/meus-anuncios"} element={<Anuncios />} />
         <Route path={"/login"} element={<Login />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   </StrictMode>
 );
