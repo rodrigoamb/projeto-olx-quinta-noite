@@ -1,7 +1,32 @@
 import { Link } from "react-router-dom";
 import { estadosBrasil } from "../utils/estadosBrasil";
+import { useState } from "react";
 
 export default function Cadastro() {
+  const [cadastroData, setCadastroData] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    cidade: "",
+    estado: "",
+  });
+
+  function handleChangeInputsCadastro(event) {
+    const { name, value } = event.target;
+
+    setCadastroData((prevCadastroData) => ({
+      ...prevCadastroData,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmitCadastro(event) {
+    event.preventDefault();
+
+    console.log(cadastroData);
+  }
+
   return (
     <main className="w-full flex">
       <div className="relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex">
@@ -83,11 +108,14 @@ export default function Cadastro() {
               ou continue com
             </p>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+          <form onSubmit={handleSubmitCadastro} className="space-y-5">
             <div>
               <label className="font-medium">Nome</label>
               <input
+                onChange={handleChangeInputsCadastro}
                 type="text"
+                name="nome"
+                value={cadastroData.nome}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -95,7 +123,10 @@ export default function Cadastro() {
             <div>
               <label className="font-medium">Email</label>
               <input
+                onChange={handleChangeInputsCadastro}
                 type="email"
+                name="email"
+                value={cadastroData.email}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -103,7 +134,10 @@ export default function Cadastro() {
             <div>
               <label className="font-medium">Senha</label>
               <input
+                onChange={handleChangeInputsCadastro}
                 type="password"
+                name="senha"
+                value={cadastroData.senha}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -112,7 +146,10 @@ export default function Cadastro() {
             <div>
               <label className="font-medium">Telefone</label>
               <input
+                onChange={handleChangeInputsCadastro}
                 type="number"
+                name="telefone"
+                value={cadastroData.telefone}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -121,7 +158,10 @@ export default function Cadastro() {
             <div>
               <label className="font-medium">Cidade</label>
               <input
+                onChange={handleChangeInputsCadastro}
                 type="text"
+                value={cadastroData.cidade}
+                name="cidade"
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -130,7 +170,10 @@ export default function Cadastro() {
             <div>
               <label className="font-medium">Estado</label>
               <select
+                onChange={handleChangeInputsCadastro}
                 required
+                value={cadastroData.estado}
+                name="estado"
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               >
                 <option value="">Selecione um estado</option>
