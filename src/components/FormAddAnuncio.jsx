@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
-export default function FormAddAnuncio() {
+export default function FormAddAnuncio({ setOpen }) {
   const [dataAnuncio, setDataAnuncio] = useState({
     titulo: "",
     preco: "",
@@ -25,8 +26,32 @@ export default function FormAddAnuncio() {
 
     try {
       const response = await fetch(
-        `https://dc-classificados.up.railway.app/api/anuncios/addNewAnuncio?userId=${userId}` 
+        `https://dc-classificados.up.railway.app/api/anuncios/addNewAnuncio?userId=${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            ...dataAnuncio,
+            preco: Number(dataAnuncio.preco),
+          }),
+        }
       );
+
+      const data = response.json();
+
+      if (response.ok) {
+        toast.success("Anúncio criado");
+
+        //fechar o drawer
+        setOpen(false);
+
+        //disparar o get
+      } else {
+        toast.error(data.message);
+      }
     } catch (error) {
       console.error(error);
     }

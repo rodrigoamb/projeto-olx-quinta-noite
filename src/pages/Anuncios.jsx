@@ -15,7 +15,7 @@ export default function Anuncios() {
       <Footer />
 
       <Drawer open={open} setOpen={setOpen} tituloDrawer={"Adicionar Anúncio"}>
-        <FormAddAnuncio />
+        <FormAddAnuncio setOpen={setOpen} />
       </Drawer>
 
       <Modal />
