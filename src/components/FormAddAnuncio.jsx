@@ -40,13 +40,15 @@ export default function FormAddAnuncio({ setOpen }) {
         }
       );
 
-      const data = response.json();
+      const data = await response.json();
 
       if (response.ok) {
         toast.success("Anúncio criado");
 
         //fechar o drawer
         setOpen(false);
+
+        console.log(data);
 
         //disparar o get
       } else {
