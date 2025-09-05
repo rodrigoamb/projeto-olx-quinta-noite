@@ -41,8 +41,6 @@ export default function App() {
     fetchDataAnuncios();
   }, []);
 
-  console.log(dataAnunciosList);
-
   return (
     <div>
       {isLoading ? (
@@ -53,7 +51,10 @@ export default function App() {
       ) : (
         <>
           <Header titulo={"Todos os anúncios"} />
-          <BodyList titulo={"Todos os anúncios"} />
+          <BodyList
+            dataAnunciosList={dataAnunciosList}
+            titulo={"Todos os anúncios"}
+          />
           <Footer />
         </>
       )}

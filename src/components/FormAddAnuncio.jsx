@@ -105,9 +105,12 @@ export default function FormAddAnuncio({ setOpen }) {
           required
           name="descricaoCompleta"
           value={dataAnuncio.descricaoCompleta}
+          maxLength={500}
           onChange={handleChangeAdicionaAnuncio}
           className="resize-none h-[200px] w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
         ></textarea>
+
+        <p className="text-gray-500">{`Tamanho (${dataAnuncio.descricaoCompleta.length}/500)`}</p>
 
         <div>
           <label className="font-medium">Link da imagem</label>
