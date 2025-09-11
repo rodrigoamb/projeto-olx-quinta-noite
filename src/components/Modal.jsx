@@ -8,9 +8,41 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
 
-export default function Modal() {
-  const [open, setOpen] = useState(true);
+export default function Modal({
+  open,
+  setOpen,
+  idDelete,
+  fetchDataMyAnuncios,
+}) {
+  async function handleFetchDelete() {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        `https://dc-classificados.up.railway.app/api/anuncios/deleteMyAnuncio/${idDelete}?userId=${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Anúncio deletado com sucesso");
+        setOpen(false);
+        fetchDataMyAnuncios();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
+  }
 
   return (
     <div>
@@ -53,7 +85,7 @@ export default function Modal() {
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
-                  onClick={() => setOpen(false)}
+                  onClick={handleFetchDelete}
                   className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                 >
                   Deletar

@@ -6,11 +6,14 @@ import Header from "../components/Header";
 import FormAddAnuncio from "../components/FormAddAnuncio";
 import Modal from "../components/Modal";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 export default function Anuncios() {
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dataAnunciosList, setDataAnunciosList] = useState([]);
+  const [idDelete, setIdDelete] = useState("");
 
   async function fetchDataMyAnuncios() {
     setIsLoading(true);
@@ -53,18 +56,38 @@ export default function Anuncios() {
 
   return (
     <div>
-      <Header titulo={"Meus anúncios"} setOpen={setOpen} />
-      <BodyList titulo={"Meus anúncios"} dataAnunciosList={dataAnunciosList} />
-      <Footer />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Header titulo={"Meus anúncios"} setOpen={setOpen} />
+          <BodyList
+            setOpenModal={setOpenModal}
+            setIdDelete={setIdDelete}
+            titulo={"Meus anúncios"}
+            dataAnunciosList={dataAnunciosList}
+          />
+          <Footer />
 
-      <Drawer open={open} setOpen={setOpen} tituloDrawer={"Adicionar Anúncio"}>
-        <FormAddAnuncio
-          setOpen={setOpen}
-          fetchDataMyAnuncios={fetchDataMyAnuncios}
-        />
-      </Drawer>
+          <Drawer
+            open={open}
+            setOpen={setOpen}
+            tituloDrawer={"Adicionar Anúncio"}
+          >
+            <FormAddAnuncio
+              setOpen={setOpen}
+              fetchDataMyAnuncios={fetchDataMyAnuncios}
+            />
+          </Drawer>
 
-      <Modal />
+          <Modal
+            open={openModal}
+            setOpen={setOpenModal}
+            idDelete={idDelete}
+            fetchDataMyAnuncios={fetchDataMyAnuncios}
+          />
+        </>
+      )}
     </div>
   );
 }

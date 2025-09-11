@@ -1,10 +1,20 @@
-export default function BodyList({ titulo, dataAnunciosList }) {
+export default function BodyList({
+  titulo,
+  dataAnunciosList,
+  setOpenModal,
+  setIdDelete,
+}) {
   function formatDate(data) {
     const dataSplit = data.split("T");
     const dataIdx = dataSplit[0];
     const dataFormated = dataIdx.split("-").reverse().join("/");
 
     return dataFormated;
+  }
+
+  function handleSetIdDelete(id) {
+    setIdDelete(id);
+    setOpenModal(true);
   }
 
   return (
@@ -73,7 +83,10 @@ export default function BodyList({ titulo, dataAnunciosList }) {
                       <button className="text-black bg-[#8CE563] px-6 py-2 rounded-md">
                         Editar
                       </button>
-                      <button className="text-black bg-[#F28000] px-6 py-2 rounded-md">
+                      <button
+                        onClick={() => handleSetIdDelete(item.id)}
+                        className="text-black bg-[#F28000] px-6 py-2 rounded-md"
+                      >
                         Deletar
                       </button>
                     </>

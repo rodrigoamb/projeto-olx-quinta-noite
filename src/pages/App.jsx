@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import BodyList from "../components/BodyList";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { CircleNotchIcon } from "@phosphor-icons/react";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 export default function App() {
   const [dataAnunciosList, setDataAnunciosList] = useState([]);
@@ -44,10 +44,7 @@ export default function App() {
   return (
     <div>
       {isLoading ? (
-        <div className=" h-screen flex justify-center items-center flex-col">
-          <CircleNotchIcon size={60} className="text-[#A523FF] animate-spin" />
-          <p className="text-[#A523FF]">Carregando...</p>
-        </div>
+        <Spinner />
       ) : (
         <>
           <Header titulo={"Todos os anúncios"} />
