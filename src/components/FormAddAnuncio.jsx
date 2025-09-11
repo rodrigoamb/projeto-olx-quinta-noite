@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function FormAddAnuncio({ setOpen }) {
+export default function FormAddAnuncio({ setOpen, fetchDataMyAnuncios }) {
   const [dataAnuncio, setDataAnuncio] = useState({
     titulo: "",
     preco: "",
@@ -48,9 +48,8 @@ export default function FormAddAnuncio({ setOpen }) {
         //fechar o drawer
         setOpen(false);
 
-        console.log(data);
-
         //disparar o get
+        fetchDataMyAnuncios();
       } else {
         toast.error(data.message);
       }
