@@ -27,13 +27,16 @@ export default function BodyList({
         {dataAnunciosList?.map((item, idx) => (
           <li key={idx} className="p-5 bg-white rounded-md shadow-sm">
             <a href={item.href} className="flex flex-row gap-5">
-              <img
-                src={item.imagem}
-                loading="lazy"
-                alt={"Foto anuncio"}
-                className="w-[300px] rounded-lg"
-              />
-              <div>
+              <div className="w-[200px] h-[200px] overflow-hiddenborder-1 border-gray-400 rounded-md">
+                <img
+                  src={item.imagem}
+                  loading="lazy"
+                  alt={"Foto anuncio"}
+                  className="w-[200px] h-full object-contain"
+                />
+              </div>
+
+              <div className="w-full">
                 <div className="justify-between sm:flex">
                   <div className="flex-1">
                     <h3 className="text-xl font-medium text-cyan-600">
