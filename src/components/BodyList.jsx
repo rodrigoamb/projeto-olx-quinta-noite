@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 export default function BodyList({
   titulo,
   dataAnunciosList,
   setOpenModal,
   setIdDelete,
 }) {
+  const navigate = useNavigate();
+
   function formatDate(data) {
     const dataSplit = data.split("T");
     const dataIdx = dataSplit[0];
@@ -15,6 +19,10 @@ export default function BodyList({
   function handleSetIdDelete(id) {
     setIdDelete(id);
     setOpenModal(true);
+  }
+
+  function handleNavigateEditAnuncio(id) {
+    navigate(`/anuncio/${id}`);
   }
 
   return (
@@ -83,7 +91,10 @@ export default function BodyList({
                 <div className="mt-4 items-center space-y-4 text-sm sm:flex sm:space-x-4 sm:space-y-0">
                   {titulo === "Meus anúncios" && (
                     <>
-                      <button className="text-black bg-[#8CE563] px-6 py-2 rounded-md">
+                      <button
+                        onClick={() => handleNavigateEditAnuncio(item.id)}
+                        className="text-black bg-[#8CE563] px-6 py-2 rounded-md"
+                      >
                         Editar
                       </button>
                       <button
