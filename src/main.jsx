@@ -8,6 +8,7 @@ import Anuncios from "./pages/Anuncios.jsx";
 import Login from "./pages/Login.jsx";
 import { ToastContainer } from "react-toastify";
 import EditPage from "./pages/EditPage.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,9 +16,23 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path={"/"} element={<App />} />
         <Route path={"/cadastro"} element={<Cadastro />} />
-        <Route path={"/meus-anuncios"} element={<Anuncios />} />
+        <Route
+          path={"/meus-anuncios"}
+          element={
+            <ProtectedRoutes>
+              <Anuncios />
+            </ProtectedRoutes>
+          }
+        />
         <Route path={"/login"} element={<Login />} />
-        <Route path="/anuncio/:id" element={<EditPage />} />
+        <Route
+          path="/anuncio/:id"
+          element={
+            <ProtectedRoutes>
+              <EditPage />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

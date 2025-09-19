@@ -1,19 +1,29 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header({ titulo, setOpen }) {
   const [state, setState] = useState(false);
 
+  const navigate = useNavigate();
+
   // Replace javascript:void(0) path with your path
   const navigation = [
-    { title: "Customers", path: "javascript:void(0)" },
-    { title: "Careers", path: "javascript:void(0)" },
-    { title: "Guides", path: "javascript:void(0)" },
-    { title: "Partners", path: "javascript:void(0)" },
+    { texto: "Ir para todos os anúncios", path: "/" },
+    { texto: "Ir para meus anúncios", path: "/meus-anuncios" },
   ];
 
   function handleAbrirDrawer() {
     setOpen(true);
   }
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  }
+
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   return (
     <nav className="bg-white w-full border-b md:border-0 md:static">
@@ -73,31 +83,42 @@ export default function Header({ titulo, setOpen }) {
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-gray-600 hover:text-indigo-600">
-                  <a href={item.path}>{item.title}</a>
+                  <Link to={item.path}>{item.texto}</Link>
                 </li>
               );
             })}
           </ul>
         </div>
         <div className="hidden md:inline-block">
-          {titulo === "Meus anúncios" ? (
+          {token && userId ? (
             <>
-              <button className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer">
+              <button
+                onClick={handleLogout}
+                className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer"
+              >
                 Sair
               </button>
-              <button
-                onClick={handleAbrirDrawer}
-                className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow"
-              >
-                Adicionar anúncio
-              </button>
+              {titulo === "Meus anúncios" && (
+                <button
+                  onClick={handleAbrirDrawer}
+                  className="py-3 px-4 text-white bg-[#6F0AD6] hover:bg-[#812fd3] rounded-md shadow"
+                >
+                  Adicionar anúncio
+                </button>
+              )}
             </>
           ) : (
             <>
-              <button className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer">
+              <button
+                onClick={() => navigate("/cadastro")}
+                className="text-[#6F0AD6] underline mr-5 font-semibold cursor-pointer"
+              >
                 Cadastre-se
               </button>
-              <button className="bg-[#6F0AD6] px-6 py-2 rounded-md text-white">
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-[#6F0AD6] px-6 py-2 rounded-md text-white"
+              >
                 Login
               </button>
             </>

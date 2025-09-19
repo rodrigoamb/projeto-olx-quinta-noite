@@ -5,16 +5,18 @@ import Spinner from "../components/Spinner";
 
 export default function EditPage() {
   const [loading, setLoading] = useState(false);
-  const [dataAnuncio, setDataAnuncio] = useState({
-    titulo: "",
-    preco: "",
-    descricaoCurta: "",
-    descricaoCompleta: "",
-    imagem: "",
-  });
+  const [dataAnuncio, setDataAnuncio] = useState({});
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  function handleChangeInput(event) {
+    const { name, value } = event.target;
+
+    setDataAnuncio((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  }
 
   function handleVoltarMeusAnuncios() {
     navigate("/meus-anuncios");
@@ -53,11 +55,48 @@ export default function EditPage() {
     }
   }
 
+  async function handleSubmitFormulario(event) {
+    event.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
+      const response = await fetch(
+        `https://dc-classificados.up.railway.app/api/anuncios/updateMyAnuncio/${id}?userId=${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            titulo: dataAnuncio.titulo,
+            preco: Number(dataAnuncio.preco),
+            descricaoCurta: dataAnuncio.descricaoCurta,
+            descricaoCompleta: dataAnuncio.descricaoCompleta,
+            imagem: dataAnuncio.imagem,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Anuncio Editado com sucesso");
+        navigate("/meus-anuncios");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Erro ao atualizar o anuncio");
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     fetchDataAnuncioPeloId();
   }, []);
-
-  console.log("meu anuncio carregado:", dataAnuncio);
 
   return (
     <div>
@@ -88,7 +127,7 @@ export default function EditPage() {
                 </button>
               </div>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmitFormulario}
                 className="space-y-5 mt-3 lg:pb-12"
               >
                 <div>
@@ -96,6 +135,8 @@ export default function EditPage() {
                   <input
                     type="text"
                     value={dataAnuncio.titulo}
+                    onChange={handleChangeInput}
+                    name="titulo"
                     required
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                   />
@@ -105,6 +146,8 @@ export default function EditPage() {
                   <input
                     type="number"
                     value={dataAnuncio.preco}
+                    name="preco"
+                    onChange={handleChangeInput}
                     required
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                   />
@@ -114,6 +157,8 @@ export default function EditPage() {
                   <input
                     type="text"
                     value={dataAnuncio.descricaoCurta}
+                    name="descricaoCurta"
+                    onChange={handleChangeInput}
                     required
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                   />
@@ -123,6 +168,8 @@ export default function EditPage() {
                   <label className="font-medium">Descrição completa</label>
                   <textarea
                     value={dataAnuncio.descricaoCompleta}
+                    onChange={handleChangeInput}
+                    name="descricaoCompleta"
                     required
                     className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                   ></textarea>
@@ -132,7 +179,9 @@ export default function EditPage() {
                   <label className="font-medium">Link da imagem</label>
                   <input
                     type="text"
+                    name="imagem"
                     value={dataAnuncio.imagem}
+                    onChange={handleChangeInput}
                     required
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
                   />
