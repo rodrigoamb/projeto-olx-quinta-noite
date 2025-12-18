@@ -8,7 +8,7 @@ export default function Header({ titulo, setOpen }) {
 
   // Replace javascript:void(0) path with your path
   const navigation = [
-    { texto: "Ir para todos os anúncios", path: "/" },
+    { texto: "Ir para todos os anúnciosss", path: "/" },
     { texto: "Ir para meus anúncios", path: "/meus-anuncios" },
   ];
 

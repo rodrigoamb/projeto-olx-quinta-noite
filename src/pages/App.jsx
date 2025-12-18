@@ -47,7 +47,7 @@ export default function App() {
         <Spinner />
       ) : (
         <>
-          <Header titulo={"Todos os anúncios"} />
+          <Header titulo={"Todos os anúnciosss"} />
           <BodyList
             dataAnunciosList={dataAnunciosList}
             titulo={"Todos os anúncios"}
