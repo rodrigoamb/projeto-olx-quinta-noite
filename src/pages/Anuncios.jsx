@@ -7,6 +7,7 @@ import FormAddAnuncio from "../components/FormAddAnuncio";
 import Modal from "../components/Modal";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
+import { fetchDataMyAnuncios } from "../services/fetchDataMyAnuncios";
 
 export default function Anuncios() {
   const [open, setOpen] = useState(false);
@@ -15,41 +16,18 @@ export default function Anuncios() {
   const [dataAnunciosList, setDataAnunciosList] = useState([]);
   const [idDelete, setIdDelete] = useState("");
 
-  async function fetchDataMyAnuncios() {
+  useEffect(() => {
     setIsLoading(true);
 
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(
-        `https://dc-classificados.up.railway.app/api/anuncios/getAllMyAnuncios?userId=${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
+    fetchDataMyAnuncios()
+      .then((data) => {
         setDataAnunciosList(data);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error("Erro ao carregar os seus anúncios");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchDataMyAnuncios();
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        toast.error("Erro ao carregar os seus anúncios", error);
+        setIsLoading(false);
+      });
   }, []);
 
   console.log(dataAnunciosList);
